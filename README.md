@@ -6,7 +6,7 @@
 ```sh
 $ git clone https://github.com/rajeshagashe/upload-file-fe.git file-upload
 $ cd file-upload
-$ npm install\
+$ npm install
 ```
 
 ### Run
