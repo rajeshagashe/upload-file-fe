@@ -15,3 +15,6 @@ $ npm install
 $ npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view APP in the browser.
+
+
+![alt text](https://github.com/rajeshagashe/upload-file-fe/blob/master/src/screenshot.jpeg?raw=true)
