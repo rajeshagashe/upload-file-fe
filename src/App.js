@@ -93,10 +93,8 @@ class FileUpload extends React.Component {
       });
       formData.append('file', this.state.file[0]);
       
-      await axios.post(this.state.preSignedUrl.data.url, formData);
       this.setState({fileUpload: true})
-      console.log("iplaegusCBHisLUFEGIYASLRJKFBWIUESLFJCBUILCBHUILJK")
-
+      await axios.post(this.state.preSignedUrl.data.url, formData);
     } catch (error) {
         console.log(error)
     }
@@ -104,7 +102,6 @@ class FileUpload extends React.Component {
 
   render(){
     if(!this.state.fileUpload){
-      console.log(this.state.fileUpload)
       return (
         <form
           style={{
@@ -117,7 +114,7 @@ class FileUpload extends React.Component {
         >
           <label>Upload file</label>
           <input type="file" onChange={event => this.setState({file : event.target.files})} />
-          <button type="submit"  onClick={this.setState({fileUpload: true})}>Send</button>
+          <button type="submit">Send</button>
       </form>
       );
     }
