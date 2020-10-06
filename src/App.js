@@ -87,13 +87,13 @@ class FileUpload extends React.Component {
       if (!this.state.file) {
         throw new Error('Select a file first!');
       }
+      const start = (new Date).getTime();
       const formData = new FormData();
       Object.keys(this.state.preSignedUrl.data.fields).forEach(key => {
         formData.append(key, this.state.preSignedUrl.data.fields[key]);
       });
       formData.append('file', this.state.file[0]);
-      
-      this.setState({fileUpload: true})
+      this.setState({fileUpload: true, startTime: start})
       await axios.post(this.state.preSignedUrl.data.url, formData);
     } catch (error) {
         console.log(error)
@@ -110,7 +110,6 @@ class FileUpload extends React.Component {
             position: "fixed",
           }} 
           onSubmit={this.submitFile}
-          // onClick={this.setState({fileUpload: true})}
         >
           <label>Upload file</label>
           <input type="file" onChange={event => this.setState({file : event.target.files})} />
@@ -120,14 +119,26 @@ class FileUpload extends React.Component {
     }
     else{
       return (
-        <SuccessMessage />
+        <SuccessMessage
+          startTime={this.state.startTime}
+          file={this.state.file}
+          />
       )
     }
   }
 }
-// };
 
 class SuccessMessage extends React.Component {
+  async componentDidMount(){
+    const form = new FormData();
+    const finish = (new Date).getTime();
+    form.append("start", this.props.startTime)
+    form.append("finish", finish)
+    form.append("file_name", this.props.file[0].name)
+    form.append("file_size", this.props.file[0].size)
+    await axios.post(`http://127.0.0.1:5000/file_upload/post_file_details`, form);
+  }
+
   render(){
     return(
       <h1>FILE UPLOADED SUCCESSFULLY</h1>
